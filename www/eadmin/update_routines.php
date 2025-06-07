@@ -1531,20 +1531,20 @@ function update_706_to_800($type='')
 	
 	// -------------------------------
 
-	if (!e107::isInstalled('download') && $sql->gen("SELECT * FROM #links WHERE link_url LIKE 'download.php%' AND link_class != '".e_UC_NOBODY."' LIMIT 1"))
-	{
-		if ($just_check) return update_needed('Download Plugin needs to be installed.');	
-	//	e107::getSingleton('e107plugin')->install('download',array('nolinks'=>true));
-		e107::getSingleton('e107plugin')->refresh('download');
-	}
+	// if (!e107::isInstalled('download') && $sql->gen("SELECT * FROM #links WHERE link_url LIKE 'download.php%' AND link_class != '".e_UC_NOBODY."' LIMIT 1"))
+	// {
+	// 	if ($just_check) return update_needed('Download Plugin needs to be installed.');	
+	// //	e107::getSingleton('e107plugin')->install('download',array('nolinks'=>true));
+	// 	e107::getSingleton('e107plugin')->refresh('download');
+	// }
 
 
 
-	if (!e107::isInstalled('banner') && $sql->isTable('banner'))
-	{
-		if ($just_check) return update_needed('Banner Table found, but plugin not installed. Needs to be refreshed.');	
-		e107::getSingleton('e107plugin')->refresh('banner');
-	}
+	// if (!e107::isInstalled('banner') && $sql->isTable('banner'))
+	// {
+	// 	if ($just_check) return update_needed('Banner Table found, but plugin not installed. Needs to be refreshed.');	
+	// 	e107::getSingleton('e107plugin')->refresh('banner');
+	// }
 	
 	// ---------------------------------
 	
