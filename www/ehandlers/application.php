@@ -175,6 +175,12 @@ class e_url
 				if($newLocation != $this->_request)
 				{
 					$redirect = e107::getParser()->replaceConstants($newLocation);
+
+					if ($v['norewrite'])
+					{
+						e107::redirect($redirect, 301);
+					}
+
 					list($file,$query) = explode("?", $redirect,2);
 
 					$get = array();
