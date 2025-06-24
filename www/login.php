@@ -29,20 +29,19 @@ if ((USER || e_LOGIN != e_SELF || (empty($pref['user_reg']) && !e107::getUserPro
 
 e107::coreLan('login');
 
-if(!defined('e_IFRAME')) define('e_IFRAME',true);
+
+//if(!defined('e_IFRAME')) define('e_IFRAME',true);
 
 $LOGIN_TEMPLATE = e107::getCoreTemplate('login');
 
-if (isset($LOGIN_TEMPLATE['page']['iframe']))
+if (isset($LOGIN_TEMPLATE['page']['noiframe']) && $LOGIN_TEMPLATE['page']['noiframe'] === true)
 {
-	if ($LOGIN_TEMPLATE['page']['iframe'])
-	{
-
-		if (!defined('e_IFRAME')) define('e_IFRAME', true);
-	}
-	else if (!defined('e_IFRAME')) define('e_IFRAME', false);
+	if (!defined('e_IFRAME')) define('e_IFRAME', false);
 }
-else if (!defined('e_IFRAME')) define('e_IFRAME', true);
+else
+{
+	if (!defined('e_IFRAME')) define('e_IFRAME', true);
+}
 
 
 require_once(HEADERF);
@@ -60,34 +59,7 @@ if (!USER || getperms('0'))
 {
 	if (!defined('LOGINMESSAGE')) define('LOGINMESSAGE', '');		// LOGINMESSAGE only appears with errors
 	require_once(e_HANDLER.'form_handler.php'); // required for BC
-	$rs = new form; // required for BC
-
-	if (empty($LOGIN_TABLE))
-	{
-
-		if(deftrue('BOOTSTRAP'))
-		{
-			$LOGIN_TEMPLATE = e107::getCoreTemplate('login');
-		}
-		else // BC Stuff.
-		{
-
-			if (file_exists(THEME.'templates/login_template.php')) //v2.x path
-			{
-				require_once(THEME.'templates/login_template.php');
-			}
-			elseif (file_exists(THEME.'login_template.php'))
-			{
-				require_once(THEME.'login_template.php');
-			}
-			else
-			{
-				$LOGIN_TEMPLATE = e107::getCoreTemplate('login');
-			}
-		}
-	}
-
-
+ 
 	$sc = e107::getScBatch('login');
 	$sc->wrapper('login/page');
 
@@ -138,4 +110,3 @@ if (!USER || getperms('0'))
 }
 
 require_once(FOOTERF);
-
