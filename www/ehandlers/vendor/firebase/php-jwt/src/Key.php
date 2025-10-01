@@ -1,0 +1,61 @@
+<?php
+
+namespace Firebase\JWT;
+
+use InvalidArgumentException;
+use TypeError;
+
+class Key
+{
+    /** @var string|resource */
+    private $keyMaterial;
+
+    /** @var string */
+    private $algorithm;
+
+    /**
+     * @param string|resource $keyMaterial
+     * @param string $algorithm
+     */
+    public function __construct($keyMaterial, $algorithm)
+    {
+        $this->keyMaterial = $keyMaterial;
+        $this->algorithm = $algorithm;
+
+        if (
+            !is_string($keyMaterial)
+            && !is_resource($keyMaterial)
+        )
+        {
+            throw new TypeError('Key material must be a string or resource');
+        }
+
+        if (empty($keyMaterial))
+        {
+            throw new InvalidArgumentException('Key material must not be empty');
+        }
+
+        if (empty($algorithm))
+        {
+            throw new InvalidArgumentException('Algorithm must not be empty');
+        }
+    }
+
+    /**
+     * Return the algorithm valid for this key
+     *
+     * @return string
+     */
+    public function getAlgorithm()
+    {
+        return $this->algorithm;
+    }
+
+    /**
+     * @return string|resource
+     */
+    public function getKeyMaterial()
+    {
+        return $this->keyMaterial;
+    }
+}
